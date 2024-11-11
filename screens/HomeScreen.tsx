@@ -7,6 +7,7 @@ import {
   ScrollView,
   TouchableOpacity,
   Dimensions,
+  Image,
 } from 'react-native';
 import {StackNavigationProp} from '@react-navigation/stack';
 
@@ -59,6 +60,11 @@ function HomeScreen({navigation}: Props): JSX.Element {
       streamUrl: station.streamUrl,
     });
   };
+
+  STATION_CATEGORIES[0].stations.map(station => {
+    console.log(typeof station.logo);
+  });
+
   return (
     <ScrollView style={styles.container}>
       <View style={styles.section}>
@@ -75,13 +81,31 @@ function HomeScreen({navigation}: Props): JSX.Element {
             {category.stations.map(station => (
               <View key={station.id}>
                 <TouchableOpacity
-                  style={[styles.card, {backgroundColor: station.color}]}
+                  style={[
+                    styles.card,
+                    !station.logo && station.color
+                      ? {backgroundColor: station.color}
+                      : null,
+                  ]}
                   onPress={() =>
                     navigation.navigate('RadioPlayer', {
                       stationName: station.name,
                       streamUrl: station.streamUrl,
                     })
-                  }></TouchableOpacity>
+                  }>
+                  {/* logo prop이 유효한 컴포넌트인지 확인 */}
+                  {station.logo && (
+                    <Image
+                      source={station.logo}
+                      style={{
+                        width: CARD_WIDTH,
+                        height: CARD_WIDTH,
+                        borderRadius: 12,
+                        resizeMode: 'contain',
+                      }}
+                    />
+                  )}
+                </TouchableOpacity>
                 <Text style={styles.stationName}>{station.name}</Text>
               </View>
             ))}
@@ -118,6 +142,8 @@ const styles = StyleSheet.create({
     marginBottom: 8,
     borderRadius: 8,
     padding: 15,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   stationName: {
     // color: '#FFF',
