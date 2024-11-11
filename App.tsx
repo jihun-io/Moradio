@@ -64,7 +64,7 @@ function AppContent() {
             let iconName = 'radio';
             if (route.name === 'Home') {
               iconName = focused ? 'radio' : 'radio-outlined';
-            } else if (route.name === '재생 중') {
+            } else if (route.name === 'RadioPlayer') {
               iconName = focused ? 'play-circle-filled' : 'play-circle-outline';
             }
             return <MaterialIcons name={iconName} size={size} color={color} />;
