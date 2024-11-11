@@ -167,19 +167,13 @@ function RadioPlayerScreen({route}: Props): JSX.Element {
           justifyContent: 'center',
           alignItems: 'center',
         }}>
-        {isLoading ? (
-          <ActivityIndicator
-            size="large"
-            color="#fff"
-            style={{
-              marginVertical: 20, // 위아래 여백 추가
-            }}
-          />
-        ) : (
-          <View style={styles.programInfo}>
+        <View style={styles.programInfo}>
+          {isLoading ? (
+            <ActivityIndicator size="large" color="#fff" />
+          ) : (
             <Image source={stationLogo} style={styles.stationLogo} />
-          </View>
-        )}
+          )}
+        </View>
       </View>
 
       <View style={styles.controls}>
@@ -239,6 +233,7 @@ const styles = StyleSheet.create({
     aspectRatio: 1,
     padding: 20,
     alignItems: 'center',
+    justifyContent: 'center',
   },
   currentTime: {
     color: '#999',
