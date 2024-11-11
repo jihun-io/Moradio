@@ -10,33 +10,14 @@ import {
 } from 'react-native';
 import {StackNavigationProp} from '@react-navigation/stack';
 
+import {STATION_CATEGORIES} from '../constants/categories';
+
 type RadioStation = {
   id: string;
   name: string;
   streamUrl: string;
   color: string;
 };
-
-const KBS_STATIONS: RadioStation[] = [
-  {
-    id: 'kbs1',
-    name: 'KBS 1라디오',
-    streamUrl: 'http://your-stream-url-1',
-    color: '#FF6B6B',
-  },
-  {
-    id: 'kbs2',
-    name: 'KBS 2라디오',
-    streamUrl: 'http://your-stream-url-2',
-    color: '#4ECDC4',
-  },
-  {
-    id: 'kbs3',
-    name: 'KBS 3라디오',
-    streamUrl: 'http://your-stream-url-3',
-    color: '#45B7D1',
-  },
-];
 
 type RootStackParamList = {
   HomeMain: undefined;
@@ -67,7 +48,7 @@ const RadioCard = ({title, color, onPress}: RadioCardProps): JSX.Element => (
     <TouchableOpacity
       style={[styles.card, {backgroundColor: color}]}
       onPress={onPress}></TouchableOpacity>
-    <Text style={styles.cardTitle}>{title}</Text>
+    <Text style={styles.stationName}>{title}</Text>
   </View>
 );
 
@@ -84,23 +65,29 @@ function HomeScreen({navigation}: Props): JSX.Element {
         <Text style={styles.sectionTitle}>최근 재생한 방송국</Text>
         <Text>최근 재생한 방송국이 여기에 표시됩니다.</Text>
       </View>
-      {/* KBS 섹션 */}
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>KBS</Text>
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={styles.cardContainer}>
-          {KBS_STATIONS.map(station => (
-            <RadioCard
-              key={station.id}
-              title={station.name}
-              color={station.color}
-              onPress={() => handleStationPress(station)}
-            />
-          ))}
-        </ScrollView>
-      </View>
+      {STATION_CATEGORIES.map(category => (
+        // 각 카테고리 섹션
+        <View key={category.id} style={styles.section}>
+          <Text style={styles.sectionTitle}>{category.name}</Text>
+
+          {/* 방송국 카드들을 가로 스크롤로 표시 */}
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            {category.stations.map(station => (
+              <View key={station.id}>
+                <TouchableOpacity
+                  style={[styles.card, {backgroundColor: station.color}]}
+                  onPress={() =>
+                    navigation.navigate('RadioPlayer', {
+                      stationName: station.name,
+                      streamUrl: station.streamUrl,
+                    })
+                  }></TouchableOpacity>
+                <Text style={styles.stationName}>{station.name}</Text>
+              </View>
+            ))}
+          </ScrollView>
+        </View>
+      ))}
     </ScrollView>
   );
 }
@@ -111,6 +98,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     // backgroundColor: '#000', // 다크 테마
+    marginBottom: 60,
   },
   section: {
     padding: 20,
@@ -132,7 +120,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     padding: 15,
   },
-  cardTitle: {
+  stationName: {
     // color: '#FFF',
     // fontSize: 16,
     // fontWeight: '600',
