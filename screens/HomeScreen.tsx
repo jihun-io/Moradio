@@ -18,6 +18,7 @@ type RadioStation = {
   name: string;
   streamUrl: string;
   color: string;
+  logo: any;
 };
 
 type RootStackParamList = {
@@ -25,6 +26,7 @@ type RootStackParamList = {
   RadioPlayer: {
     stationName: string;
     streamUrl: string;
+    stationLogo: any;
   };
 };
 
@@ -58,12 +60,9 @@ function HomeScreen({navigation}: Props): JSX.Element {
     navigation.navigate('RadioPlayer', {
       stationName: station.name,
       streamUrl: station.streamUrl,
+      stationLogo: station.logo,
     });
   };
-
-  STATION_CATEGORIES[0].stations.map(station => {
-    console.log(typeof station.logo);
-  });
 
   return (
     <ScrollView style={styles.container}>
@@ -91,6 +90,7 @@ function HomeScreen({navigation}: Props): JSX.Element {
                     navigation.navigate('RadioPlayer', {
                       stationName: station.name,
                       streamUrl: station.streamUrl,
+                      stationLogo: station.logo,
                     })
                   }>
                   {/* logo prop이 유효한 컴포넌트인지 확인 */}

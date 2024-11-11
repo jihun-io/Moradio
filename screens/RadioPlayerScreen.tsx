@@ -5,6 +5,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   ActivityIndicator,
+  Image,
 } from 'react-native';
 import {RouteProp} from '@react-navigation/native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'; // MaterialIcons import
@@ -37,6 +38,7 @@ type RootStackParamList = {
   RadioPlayer: {
     stationName: string;
     streamUrl: string;
+    stationLogo: any;
   };
 };
 
@@ -69,10 +71,10 @@ function RadioPlayerScreen({route}: Props): JSX.Element {
     }
   };
 
-  const {stationName, streamUrl} = (() => {
+  const {stationName, streamUrl, stationLogo} = (() => {
     if (!route.params) {
       console.log(usePlayer);
-      return {stationName: '재생 중이 아님', streamUrl: ''};
+      return {stationName: '재생 중이 아님', streamUrl: '', stationLogo: ''};
     } else {
       return route.params;
     }
@@ -173,7 +175,11 @@ function RadioPlayerScreen({route}: Props): JSX.Element {
               marginVertical: 20, // 위아래 여백 추가
             }}
           />
-        ) : null}
+        ) : (
+          <View style={styles.programInfo}>
+            <Image source={stationLogo} style={styles.stationLogo} />
+          </View>
+        )}
       </View>
 
       <View style={styles.controls}>
@@ -217,12 +223,21 @@ const styles = StyleSheet.create({
     color: '#FFF',
     marginBottom: 10,
   },
+  stationLogo: {
+    width: '100%',
+    height: '100%',
+    borderRadius: 12,
+    resizeMode: 'contain',
+  },
   liveIndicator: {
     color: '#FF0000',
     fontSize: 16,
     fontWeight: '600',
   },
   programInfo: {
+    width: '100%',
+    aspectRatio: 1,
+    padding: 20,
     alignItems: 'center',
   },
   currentTime: {
