@@ -8,13 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* MoradioTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* MoradioTests.m */; };
+		068D394B233F0D0CE267F06A /* libPods-Moradio-MoradioTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 41FF5F7D4CCA28D2D4427464 /* libPods-Moradio-MoradioTests.a */; };
+		08F17A4E31B789218EAE038D /* libPods-Moradio.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 29173B411885E121D1871B98 /* libPods-Moradio.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		42CBC365A174B6E0085C1FDA /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 476FC66C131F876D0D21356B /* PrivacyInfo.xcprivacy */; };
-		509FBE68EA0630EECDA6E9FA /* libPods-Moradio.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DA0712F3470F83E744155AB5 /* libPods-Moradio.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		B2307755046A414AED5BCC3D /* libPods-Moradio-MoradioTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AFDE2E5290B584D13103B351 /* libPods-Moradio-MoradioTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,15 +38,15 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Moradio/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Moradio/main.m; sourceTree = "<group>"; };
 		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = Moradio/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		4445341B92486C580B0DF83F /* Pods-Moradio.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Moradio.release.xcconfig"; path = "Target Support Files/Pods-Moradio/Pods-Moradio.release.xcconfig"; sourceTree = "<group>"; };
+		29173B411885E121D1871B98 /* libPods-Moradio.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Moradio.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		31C42258E6569751AB032834 /* Pods-Moradio-MoradioTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Moradio-MoradioTests.release.xcconfig"; path = "Target Support Files/Pods-Moradio-MoradioTests/Pods-Moradio-MoradioTests.release.xcconfig"; sourceTree = "<group>"; };
+		41FF5F7D4CCA28D2D4427464 /* libPods-Moradio-MoradioTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Moradio-MoradioTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		476FC66C131F876D0D21356B /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; name = PrivacyInfo.xcprivacy; path = Moradio/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		4F6EC741D63D60A62AC13D2E /* Pods-Moradio-MoradioTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Moradio-MoradioTests.debug.xcconfig"; path = "Target Support Files/Pods-Moradio-MoradioTests/Pods-Moradio-MoradioTests.debug.xcconfig"; sourceTree = "<group>"; };
+		7C3C4887629F305F6816DD1C /* Pods-Moradio.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Moradio.release.xcconfig"; path = "Target Support Files/Pods-Moradio/Pods-Moradio.release.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = Moradio/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		AFDE2E5290B584D13103B351 /* libPods-Moradio-MoradioTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Moradio-MoradioTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		B5D981353B6EEEC0D09B9D18 /* Pods-Moradio-MoradioTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Moradio-MoradioTests.release.xcconfig"; path = "Target Support Files/Pods-Moradio-MoradioTests/Pods-Moradio-MoradioTests.release.xcconfig"; sourceTree = "<group>"; };
-		DA0712F3470F83E744155AB5 /* libPods-Moradio.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Moradio.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		E134818DF4D297C0F63177DE /* Pods-Moradio.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Moradio.debug.xcconfig"; path = "Target Support Files/Pods-Moradio/Pods-Moradio.debug.xcconfig"; sourceTree = "<group>"; };
+		9C4CFAB44E5A04425F5ACCB4 /* Pods-Moradio.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Moradio.debug.xcconfig"; path = "Target Support Files/Pods-Moradio/Pods-Moradio.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		FA7E24605D8715EF9828C8B0 /* Pods-Moradio-MoradioTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Moradio-MoradioTests.debug.xcconfig"; path = "Target Support Files/Pods-Moradio-MoradioTests/Pods-Moradio-MoradioTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,7 +54,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B2307755046A414AED5BCC3D /* libPods-Moradio-MoradioTests.a in Frameworks */,
+				068D394B233F0D0CE267F06A /* libPods-Moradio-MoradioTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -62,7 +62,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				509FBE68EA0630EECDA6E9FA /* libPods-Moradio.a in Frameworks */,
+				08F17A4E31B789218EAE038D /* libPods-Moradio.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -106,8 +106,8 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				DA0712F3470F83E744155AB5 /* libPods-Moradio.a */,
-				AFDE2E5290B584D13103B351 /* libPods-Moradio-MoradioTests.a */,
+				29173B411885E121D1871B98 /* libPods-Moradio.a */,
+				41FF5F7D4CCA28D2D4427464 /* libPods-Moradio-MoradioTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -153,10 +153,10 @@
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				E134818DF4D297C0F63177DE /* Pods-Moradio.debug.xcconfig */,
-				4445341B92486C580B0DF83F /* Pods-Moradio.release.xcconfig */,
-				FA7E24605D8715EF9828C8B0 /* Pods-Moradio-MoradioTests.debug.xcconfig */,
-				B5D981353B6EEEC0D09B9D18 /* Pods-Moradio-MoradioTests.release.xcconfig */,
+				9C4CFAB44E5A04425F5ACCB4 /* Pods-Moradio.debug.xcconfig */,
+				7C3C4887629F305F6816DD1C /* Pods-Moradio.release.xcconfig */,
+				4F6EC741D63D60A62AC13D2E /* Pods-Moradio-MoradioTests.debug.xcconfig */,
+				31C42258E6569751AB032834 /* Pods-Moradio-MoradioTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -168,12 +168,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "MoradioTests" */;
 			buildPhases = (
-				8D46C51BA4FE2378136DDECF /* [CP] Check Pods Manifest.lock */,
+				1263FB1554F475AFF48874EA /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				A117CBDCBA5A358A6D68C8C1 /* [CP] Embed Pods Frameworks */,
-				AFA7EC72525A0A5FDA7C4879 /* [CP] Copy Pods Resources */,
+				8711D556307382189973BE20 /* [CP] Embed Pods Frameworks */,
+				CCD2B93FBA987E49F450E1B3 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -189,13 +189,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "Moradio" */;
 			buildPhases = (
-				FA7E43620B9B2B76967D90BC /* [CP] Check Pods Manifest.lock */,
+				321A85B3578DAA9E334E3A03 /* [CP] Check Pods Manifest.lock */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				5CDC28C821C59CB5446B91F2 /* [CP] Embed Pods Frameworks */,
-				332E1B83E2BE5FC93D393A5D /* [CP] Copy Pods Resources */,
+				0CA768066750AC2B293F8CF2 /* [CP] Embed Pods Frameworks */,
+				7533842FAD83F7C3E4A86E3E /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -225,11 +225,11 @@
 			};
 			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "Moradio" */;
 			compatibilityVersion = "Xcode 12.0";
-			developmentRegion = en;
+			developmentRegion = ko;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				en,
 				Base,
+				ko,
 			);
 			mainGroup = 83CBB9F61A601CBA00E9B192;
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
@@ -279,24 +279,7 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"$REACT_NATIVE_PATH/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"$REACT_NATIVE_PATH/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
 		};
-		332E1B83E2BE5FC93D393A5D /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Moradio/Pods-Moradio-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Moradio/Pods-Moradio-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Moradio/Pods-Moradio-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		5CDC28C821C59CB5446B91F2 /* [CP] Embed Pods Frameworks */ = {
+		0CA768066750AC2B293F8CF2 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -313,7 +296,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Moradio/Pods-Moradio-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		8D46C51BA4FE2378136DDECF /* [CP] Check Pods Manifest.lock */ = {
+		1263FB1554F475AFF48874EA /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -335,41 +318,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		A117CBDCBA5A358A6D68C8C1 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Moradio-MoradioTests/Pods-Moradio-MoradioTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Moradio-MoradioTests/Pods-Moradio-MoradioTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Moradio-MoradioTests/Pods-Moradio-MoradioTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		AFA7EC72525A0A5FDA7C4879 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Moradio-MoradioTests/Pods-Moradio-MoradioTests-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Moradio-MoradioTests/Pods-Moradio-MoradioTests-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Moradio-MoradioTests/Pods-Moradio-MoradioTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		FA7E43620B9B2B76967D90BC /* [CP] Check Pods Manifest.lock */ = {
+		321A85B3578DAA9E334E3A03 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -389,6 +338,57 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7533842FAD83F7C3E4A86E3E /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Moradio/Pods-Moradio-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Moradio/Pods-Moradio-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Moradio/Pods-Moradio-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8711D556307382189973BE20 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Moradio-MoradioTests/Pods-Moradio-MoradioTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Moradio-MoradioTests/Pods-Moradio-MoradioTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Moradio-MoradioTests/Pods-Moradio-MoradioTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CCD2B93FBA987E49F450E1B3 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Moradio-MoradioTests/Pods-Moradio-MoradioTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Moradio-MoradioTests/Pods-Moradio-MoradioTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Moradio-MoradioTests/Pods-Moradio-MoradioTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -424,15 +424,16 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FA7E24605D8715EF9828C8B0 /* Pods-Moradio-MoradioTests.debug.xcconfig */;
+			baseConfigurationReference = 4F6EC741D63D60A62AC13D2E /* Pods-Moradio-MoradioTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = 62494T7ZTJ;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = MoradioTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -443,7 +444,7 @@
 					"-lc++",
 					"$(inherited)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = io.jihun.moradio.tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Moradio.app/Moradio";
 			};
@@ -451,12 +452,13 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B5D981353B6EEEC0D09B9D18 /* Pods-Moradio-MoradioTests.release.xcconfig */;
+			baseConfigurationReference = 31C42258E6569751AB032834 /* Pods-Moradio-MoradioTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = 62494T7ZTJ;
 				INFOPLIST_FILE = MoradioTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -467,7 +469,7 @@
 					"-lc++",
 					"$(inherited)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = io.jihun.moradio.tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Moradio.app/Moradio";
 			};
@@ -475,13 +477,17 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E134818DF4D297C0F63177DE /* Pods-Moradio.debug.xcconfig */;
+			baseConfigurationReference = 9C4CFAB44E5A04425F5ACCB4 /* Pods-Moradio.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 62494T7ZTJ;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Moradio/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Moradio;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -492,7 +498,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = io.jihun.moradio;
 				PRODUCT_NAME = Moradio;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -502,12 +508,16 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4445341B92486C580B0DF83F /* Pods-Moradio.release.xcconfig */;
+			baseConfigurationReference = 7C3C4887629F305F6816DD1C /* Pods-Moradio.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 62494T7ZTJ;
 				INFOPLIST_FILE = Moradio/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Moradio;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -518,7 +528,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = io.jihun.moradio;
 				PRODUCT_NAME = Moradio;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -560,7 +570,6 @@
 				CXX = "";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -598,10 +607,7 @@
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 					"-DFOLLY_HAVE_CLOCK_GETTIME=1",
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					" ",
-				);
+				OTHER_LDFLAGS = "$(inherited)  ";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				USE_HERMES = true;
@@ -643,7 +649,6 @@
 				CXX = "";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -665,6 +670,7 @@
 					"\"$(inherited)\"",
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
 					"-DFOLLY_NO_CONFIG",
@@ -673,10 +679,7 @@
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 					"-DFOLLY_HAVE_CLOCK_GETTIME=1",
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					" ",
-				);
+				OTHER_LDFLAGS = "$(inherited)  ";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				USE_HERMES = true;
