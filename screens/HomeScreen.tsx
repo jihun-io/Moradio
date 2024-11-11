@@ -98,7 +98,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     // backgroundColor: '#000', // 다크 테마
-    marginBottom: 60,
   },
   section: {
     padding: 20,
