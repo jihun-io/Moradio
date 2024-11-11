@@ -14,6 +14,7 @@ import TrackPlayer, {
   useTrackPlayerEvents,
   State,
 } from 'react-native-track-player';
+import Slider from '@react-native-community/slider'; // Slider import
 
 import {usePlayer} from '../contexts/RadioContext';
 
@@ -48,6 +49,7 @@ type Props = {
 function RadioPlayerScreen({route}: Props): JSX.Element {
   const {isPlaying, setIsPlaying} = usePlayer();
   const [isLoading, setIsLoading] = useState(true);
+  const [volume, setVolume] = useState(1.0); // 0.0 ~ 1.0 사이 값
 
   const handlePlayPress = () => {
     if (isPlaying) {
@@ -56,6 +58,15 @@ function RadioPlayerScreen({route}: Props): JSX.Element {
       TrackPlayer.play();
     }
     setIsPlaying(!isPlaying);
+  };
+
+  const handleVolumeChange = async (value: number) => {
+    try {
+      await TrackPlayer.setVolume(value);
+      setVolume(value);
+    } catch (error) {
+      console.log('Error setting volume:', error);
+    }
   };
 
   const {stationName, streamUrl} = (() => {
@@ -173,6 +184,16 @@ function RadioPlayerScreen({route}: Props): JSX.Element {
             color="#FFF"
           />
         </TouchableOpacity>
+        <Slider
+          style={{width: '80%', height: 40}}
+          minimumValue={0}
+          maximumValue={1}
+          value={volume}
+          onValueChange={handleVolumeChange}
+          step={0.01}
+          minimumTrackTintColor="#FFFFFF"
+          maximumTrackTintColor="#000000"
+        />
       </View>
     </View>
   );
