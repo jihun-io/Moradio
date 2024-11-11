@@ -1,8 +1,34 @@
+import { ImageSourcePropType } from 'react-native';
+
+import bbsLogo from '../assets/images/stations/bbs.png';
+import cbsLogo from '../assets/images/stations/cbs.png';
+import cpbcLogo from '../assets/images/stations/cpbc.png';
+import ebsLogo from '../assets/images/stations/ebsfm.png';
+import febcLogo from '../assets/images/stations/febc.png';
+import kbs1Logo from '../assets/images/stations/kbs1.png';
+import kbs2Logo from '../assets/images/stations/kbs2.png';
+import kbs3Logo from '../assets/images/stations/kbs3.png';
+import kbs1fmLogo from '../assets/images/stations/kbs1fm.png';
+import kbs2fmLogo from '../assets/images/stations/kbs2fm.png';
+import kbshanminjokLogo from '../assets/images/stations/kbshanminjok.png';
+import kookbangLogo from '../assets/images/stations/kookbang.png';
+import kugakLogo from '../assets/images/stations/kugak.png';
+import mbcfm4uLogo from '../assets/images/stations/mbcfm4u.png';
+import mbcsfmLogo from '../assets/images/stations/mbcsfm.png';
+import sbslovefmLogo from '../assets/images/stations/sbslovefm.png';
+import sbspowerfmLogo from '../assets/images/stations/sbspowerfm.png';
+import tbsefmLogo from '../assets/images/stations/tbsefm.png';
+import tbsfmLogo from '../assets/images/stations/tbsfm.png';
+import ytnLogo from '../assets/images/stations/ytn.png';
+
+
+
 export interface RadioStation {
   id: string;
   name: string;
   streamUrl: string;
-  color: string;
+  color?: string;
+  logo?: ImageSourcePropType;
 }
 
 // KBS 방송국
@@ -11,37 +37,37 @@ export const KBS_STATIONS: RadioStation[] = [
     id: 'kbs1',
     name: 'KBS 1라디오',
     streamUrl: '?stn=kbs&ch=1radio',
-    color: '#FF6B6B',
+    logo: kbs1Logo,
   },
   {
     id: 'kbs2',
     name: 'KBS 2라디오',
     streamUrl: '?stn=kbs&ch=2radio',
-    color: '#4ECDC4',
+    logo: kbs2Logo,
   },
   {
     id: 'kbs3',
     name: 'KBS 3라디오',
     streamUrl: '?stn=kbs&ch=3radio',
-    color: '#45B7D1',
+    logo: kbs3Logo,
   },
   {
     id: 'kbs1fm',
     name: 'KBS 1FM',
     streamUrl: '?stn=kbs&ch=1fm',
-    color: '#FF6B6B',
+    logo: kbs1fmLogo,
   },
   {
     id: 'kbs2fm',
     name: 'KBS 2FM',
     streamUrl: '?stn=kbs&ch=2fm',
-    color: '#4ECDC4',
+    logo: kbs2fmLogo,
   },
   {
     id: 'kbshanminjok',
     name: 'KBS 한민족방송',
     streamUrl: '?stn=kbs&ch=hanminjok',
-    color: '#45B7D1',
+    logo: kbshanminjokLogo,
   },
 ];
 
@@ -51,19 +77,13 @@ export const MBC_STATIONS: RadioStation[] = [
     id: 'mbcsfm',
     name: 'MBC 표준FM',
     streamUrl: '?stn=mbc&ch=sfm',
-    color: '#FF6B6B',
+    logo: mbcsfmLogo,
   },
   {
     id: 'mbcfm4u',
     name: 'MBC FM4U',
     streamUrl: '?stn=mbc&ch=fm4u',
-    color: '#4ECDC4',
-  },
-  {
-    id: 'mbcchm',
-    name: 'MBC mini 올댓뮤직',
-    streamUrl: '?stn=mbc&ch=chm',
-    color: '#45B7D1',
+    logo: mbcfm4uLogo,
   },
 ];
 
@@ -73,19 +93,13 @@ export const SBS_STATIONS: RadioStation[] = [
     id: 'sbslovefm',
     name: 'SBS 러브FM',
     streamUrl: '?stn=sbs&ch=lovefm',
-    color: '#FF6B6B',
+    logo: sbslovefmLogo,
   },
   {
     id: 'sbspowerfm',
     name: 'SBS 파워FM',
     streamUrl: '?stn=sbs&ch=powerfm',
-    color: '#4ECDC4',
-  },
-  {
-    id: 'sbsdmb',
-    name: 'SBS 고릴라디오M',
-    streamUrl: '?stn=sbs&ch=dmb',
-    color: '#45B7D1',
+    logo: sbspowerfmLogo,
   },
 ];
 
@@ -95,7 +109,7 @@ export const EBS_STATIONS: RadioStation[] = [
     id: 'ebsfm',
     name: 'EBS FM',
     streamUrl: '?stn=ebs',
-    color: '#FF6B6B',
+    logo: ebsLogo,
   },
 ];
 
@@ -121,7 +135,7 @@ export const YTN_STATIONS: RadioStation[] = [
     id: 'ytn',
     name: 'YTN 라디오',
     streamUrl: '?stn=ytn',
-    color: '#FF6B6B',
+    logo: ytnLogo,
   },
 ];
 
@@ -131,13 +145,13 @@ export const TBS_STATIONS: RadioStation[] = [
     id: 'tbsfm',
     name: 'TBS FM',
     streamUrl: '?stn=tbs&ch=fm',
-    color: '#4ECDC4',
+    logo: tbsfmLogo,
   },
   {
     id: 'tbsefm',
     name: 'TBS eFM',
     streamUrl: '?stn=tbs&ch=efm',
-    color: '#45B7D1',
+    logo: tbsefmLogo,
   },
 ];
 
@@ -157,7 +171,7 @@ export const CBS_STATIONS: RadioStation[] = [
     id: 'cbssfm',
     name: 'CBS 표준FM',
     streamUrl: '?stn=cbs&ch=sfm',
-    color: '#4ECDC4',
+    color: '#4ECDC4'
   },
   {
     id: 'cbsmfm',
@@ -179,19 +193,19 @@ export const RELIGIOUS_STATIONS: RadioStation[] = [
     id: 'febc',
     name: 'FEBC 서울극동방송',
     streamUrl: '?stn=febc',
-    color: '#4ECDC4',
+    logo: febcLogo,
   },
   {
     id: 'bbs',
     name: 'BBS 서울불교방송',
     streamUrl: '?stn=bbs',
-    color: '#45B7D1',
+    logo: bbsLogo,
   },
   {
     id: 'cpbc',
     name: 'CPBC 가톨릭평화방송',
     streamUrl: '?stn=cpbc',
-    color: '#FF6B6B',
+    logo: cpbcLogo,
   },
   {
     id: 'wbs',
