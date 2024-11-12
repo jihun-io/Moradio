@@ -144,7 +144,7 @@ function HomeScreen({navigation}: Props): JSX.Element {
       }
     };
     loadRecentStations();
-  }, [recentStationList]);
+  }, []);
 
   const handleStationPress = async (station: RadioStation) => {
     try {
