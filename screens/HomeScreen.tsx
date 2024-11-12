@@ -92,7 +92,6 @@ function HomeScreen({navigation}: Props): JSX.Element {
               station => station.id !== stationId,
             );
 
-            console.log(updatedStations);
             // 최근 방송국 목록 업데이트
             await AsyncStorage.setItem(
               '@recent_stations',
