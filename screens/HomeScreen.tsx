@@ -255,7 +255,6 @@ const CARD_WIDTH = Dimensions.get('window').width * 0.4; // 화면 너비의 40%
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // backgroundColor: '#000', // 다크 테마
   },
   section: {
     padding: 20,
