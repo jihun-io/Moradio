@@ -9,7 +9,15 @@ import {
   Dimensions,
   Image,
   Alert,
+  useColorScheme,
 } from 'react-native';
+import {
+  useNavigation,
+  createStaticNavigation,
+  DefaultTheme,
+  DarkTheme,
+  useTheme,
+} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {useActionSheet} from '@expo/react-native-action-sheet';
 
@@ -62,6 +70,8 @@ const RadioCard = ({title, color, onPress}: RadioCardProps): JSX.Element => (
 );
 
 function HomeScreen({navigation}: Props): JSX.Element {
+  const {colors} = useTheme();
+
   const [recentStationList, setRecentStationList] = useState<RadioStation[]>(
     [],
   );
@@ -172,13 +182,17 @@ function HomeScreen({navigation}: Props): JSX.Element {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.section}>
-        <Text style={styles.sectionTitle}>최근 재생한 방송국</Text>
+        <Text style={{...styles.sectionTitle, color: colors.text}}>
+          최근 재생한 방송국
+        </Text>
         <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}
           ref={recentScrollView}>
           {recentStationList.length === 0 ? (
-            <Text>최근 재생한 방송국이 여기에 표시됩니다.</Text>
+            <Text style={{color: colors.text}}>
+              최근 재생한 방송국이 여기에 표시됩니다.
+            </Text>
           ) : (
             recentStationList.reverse().map((station: RadioStation) => (
               <View key={station.id}>
@@ -204,7 +218,9 @@ function HomeScreen({navigation}: Props): JSX.Element {
                     />
                   )}
                 </TouchableOpacity>
-                <Text style={styles.stationName}>{station.name}</Text>
+                <Text style={{...styles.stationName, color: colors.text}}>
+                  {station.name}
+                </Text>
               </View>
             ))
           )}
@@ -213,7 +229,9 @@ function HomeScreen({navigation}: Props): JSX.Element {
       {STATION_CATEGORIES.map(category => (
         // 각 카테고리 섹션
         <View key={category.id} style={styles.section}>
-          <Text style={styles.sectionTitle}>{category.name}</Text>
+          <Text style={{...styles.sectionTitle, color: colors.text}}>
+            {category.name}
+          </Text>
 
           {/* 방송국 카드들을 가로 스크롤로 표시 */}
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
@@ -240,7 +258,9 @@ function HomeScreen({navigation}: Props): JSX.Element {
                     />
                   )}
                 </TouchableOpacity>
-                <Text style={styles.stationName}>{station.name}</Text>
+                <Text style={{...styles.stationName, color: colors.text}}>
+                  {station.name}
+                </Text>
               </View>
             ))}
           </ScrollView>
@@ -262,7 +282,6 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 24,
     fontWeight: 'bold',
-    // color: '#FFF',
     marginBottom: 15,
   },
   cardContainer: {

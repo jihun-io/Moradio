@@ -1,6 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import {View, StyleSheet} from 'react-native';
-import {NavigationContainer, DefaultTheme} from '@react-navigation/native';
+import {View, StyleSheet, useColorScheme} from 'react-native';
+import {
+  NavigationContainer,
+  DefaultTheme,
+  DarkTheme,
+} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createStackNavigator} from '@react-navigation/stack';
 import RadioPlayerScreen, {setupPlayer} from './screens/RadioPlayerScreen';
@@ -70,7 +74,7 @@ function AppContent() {
             }
             return <MaterialIcons name={iconName} size={size} color={color} />;
           },
-          tabBarActiveTintColor: DefaultTheme.colors.primary,
+          tabBarActiveTintColor: theme.colors.primary,
         })}>
         <Tab.Screen
           name="Moradio"
@@ -101,8 +105,26 @@ function AppContent() {
   );
 }
 
+const theme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: '#DC2E2E',
+  },
+};
+
+const darkTheme = {
+  ...DarkTheme,
+  colors: {
+    ...DarkTheme.colors,
+    primary: '#DC2E2E',
+  },
+};
+
 function App(): JSX.Element {
   const [showMiniPlayer, setShowMiniPlayer] = useState(false);
+
+  const scheme = useColorScheme();
 
   useTrackPlayerEvents([Event.PlaybackTrackChanged], event => {
     if (
@@ -121,7 +143,7 @@ function App(): JSX.Element {
     <ActionSheetProvider>
       <SafeAreaProvider>
         <PlayerProvider>
-          <NavigationContainer>
+          <NavigationContainer theme={scheme === 'dark' ? darkTheme : theme}>
             <AppContent />
           </NavigationContainer>
         </PlayerProvider>
