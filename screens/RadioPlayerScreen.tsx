@@ -68,7 +68,7 @@ type RootStackParamList = {
 type RadioPlayerScreenRouteProp = RouteProp<RootStackParamList, 'RadioPlayer'>;
 
 type Props = {
-  route: RadioPlayerScreenRouteProp;
+  route?: any;
 };
 
 function RadioPlayerScreen({route}: Props): JSX.Element {
