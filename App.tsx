@@ -12,6 +12,7 @@ import {
   useSafeAreaInsets,
   SafeAreaProvider,
 } from 'react-native-safe-area-context';
+import {ActionSheetProvider} from '@expo/react-native-action-sheet';
 
 import {PlayerProvider, usePlayer} from './contexts/RadioContext';
 
@@ -117,13 +118,15 @@ function App(): JSX.Element {
   }, []);
 
   return (
-    <SafeAreaProvider>
-      <PlayerProvider>
-        <NavigationContainer>
-          <AppContent />
-        </NavigationContainer>
-      </PlayerProvider>
-    </SafeAreaProvider>
+    <ActionSheetProvider>
+      <SafeAreaProvider>
+        <PlayerProvider>
+          <NavigationContainer>
+            <AppContent />
+          </NavigationContainer>
+        </PlayerProvider>
+      </SafeAreaProvider>
+    </ActionSheetProvider>
   );
 }
 
