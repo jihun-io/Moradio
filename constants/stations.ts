@@ -20,6 +20,11 @@ import sbspowerfmLogo from '../assets/images/stations/sbspowerfm.png';
 import tbsefmLogo from '../assets/images/stations/tbsefm.png';
 import tbsfmLogo from '../assets/images/stations/tbsfm.png';
 import ytnLogo from '../assets/images/stations/ytn.png';
+import tbnLogo from '../assets/images/stations/tbn.png';
+import obsLogo from '../assets/images/stations/obs.png';
+import ifmLogo from '../assets/images/stations/ifm.png';
+import afnLogo from '../assets/images/stations/afn.png';
+import wbsLogo from '../assets/images/stations/wbs.png';
 
 
 
@@ -119,13 +124,13 @@ export const LOCAL_STATIONS: RadioStation[] = [
     id: 'obs',
     name: 'OBS 라디오',
     streamUrl: '?stn=obs',
-    color: '#4ECDC4',
+    logo: obsLogo,
   },
   {
     id: 'ifm',
     name: 'iFM 경인방송',
     streamUrl: '?stn=ifm',
-    color: '#45B7D1',
+    logo: ifmLogo,
   },
 ];
 
@@ -161,7 +166,7 @@ export const TBN_STATIONS: RadioStation[] = [
     id: 'tbn',
     name: 'TBN 경인교통방송',
     streamUrl: '?stn=tbn',
-    color: '#FF6B6B',
+    logo: tbnLogo,
   },
 ];
 
@@ -171,19 +176,19 @@ export const CBS_STATIONS: RadioStation[] = [
     id: 'cbssfm',
     name: 'CBS 표준FM',
     streamUrl: '?stn=cbs&ch=sfm',
-    color: '#4ECDC4'
+    logo: cbsLogo,
   },
   {
     id: 'cbsmfm',
     name: 'CBS 음악FM',
     streamUrl: '?stn=cbs&ch=mfm',
-    color: '#45B7D1',
+    logo: cbsLogo,
   },
   {
     id: 'cbsjoy4u',
     name: 'CBS JOY4U',
     streamUrl: '?stn=cbs&ch=joy4u',
-    color: '#FF6B6B',
+    logo: cbsLogo,
   },
 ];
 
@@ -211,7 +216,7 @@ export const RELIGIOUS_STATIONS: RadioStation[] = [
     id: 'wbs',
     name: 'WBS 서울원음방송',
     streamUrl: '?stn=wbs',
-    color: '#4ECDC4',
+    logo: wbsLogo,
   },
 ];
 
@@ -221,19 +226,19 @@ export const SPECIAL_STATIONS: RadioStation[] = [
     id: 'kookbang',
     name: '국방FM',
     streamUrl: '?stn=kookbang',
-    color: '#45B7D1',
+    logo: kookbangLogo,
   },
   {
     id: 'kugak',
     name: '국악방송',
     streamUrl: '?stn=kugak',
-    color: '#FF6B6B',
+    logo: kugakLogo,
   },
   {
     id: 'afn',
     name: 'AFN FM Humphreys',
     streamUrl: '?stn=afn&city=humphreys',
-    color: '#4ECDC4',
+    logo: afnLogo,
   },
 ];
 
