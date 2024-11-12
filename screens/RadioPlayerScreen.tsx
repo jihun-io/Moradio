@@ -172,6 +172,7 @@ function RadioPlayerScreen({route}: Props): JSX.Element {
           url: `https://radio.ztqckg569b.workers.dev/stream/${streamUrl}`,
           title: stationName,
           artist: 'Moradio',
+          artwork: stationLogo ? stationLogo : null,
         });
 
         // 재생 시작
