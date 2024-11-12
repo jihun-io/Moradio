@@ -1,5 +1,6 @@
-package com.moradio
+package io.jihun.moradio
 
+import io.jihun.moradio.BuildConfig
 import android.app.Application
 import com.facebook.react.PackageList
 import com.facebook.react.ReactApplication

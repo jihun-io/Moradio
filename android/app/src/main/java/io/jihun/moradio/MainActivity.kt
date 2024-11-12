@@ -1,4 +1,4 @@
-package com.moradio
+package io.jihun.moradio
 
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate

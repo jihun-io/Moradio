@@ -74,13 +74,18 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk rootProject.ext.compileSdkVersion
 
-    namespace "com.moradio"
+    namespace "io.jihun.moradio"
     defaultConfig {
-        applicationId "com.moradio"
+        applicationId "io.jihun.moradio"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
+        
+        // 추가: arm64-v8a만 지원
+        ndk {
+            abiFilters "arm64-v8a"
+        }
     }
     signingConfigs {
         debug {
@@ -100,6 +105,19 @@ android {
             signingConfig signingConfigs.debug
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+        }
+    }
+    packagingOptions {
+        pickFirst '**/*.so'
+        // 기존 pickFirst 설정들
+        pickFirst '**/libc++_shared.so'
+        pickFirst '**/libfbjni.so'
+        pickFirst '**/libjsi.so'
+        pickFirst '**/libreactnativejni.so'
+        
+        // 추가: jniLibs 설정
+        jniLibs {
+            useLegacyPackaging = true
         }
     }
 }
