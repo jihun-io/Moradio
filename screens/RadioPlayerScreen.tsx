@@ -157,8 +157,9 @@ function RadioPlayerScreen({route}: Props): JSX.Element {
   return (
     <View style={styles.container}>
       <View style={styles.stationInfo}>
-        <Text style={styles.stationName}>{stationName}</Text>
-        {/* <Text style={styles.liveIndicator}>LIVE</Text> */}
+        {stationName === '재생 중이 아님' ? null : (
+          <Text style={styles.stationName}>{stationName}</Text>
+        )}
       </View>
 
       <View
@@ -168,22 +169,27 @@ function RadioPlayerScreen({route}: Props): JSX.Element {
           alignItems: 'center',
         }}>
         <View style={styles.programInfo}>
-          {isLoading ? (
+          {isLoading && stationName !== '재생 중이 아님' ? (
             <ActivityIndicator size="large" color="#fff" />
-          ) : (
+          ) : stationName !== '재생 중이 아님' ? (
             <Image source={stationLogo} style={styles.stationLogo} />
+          ) : (
+            <Text style={{fontSize: 24, color: '#fff'}}>{stationName}</Text>
           )}
         </View>
       </View>
 
       <View style={styles.controls}>
-        <TouchableOpacity style={styles.playButton} onPress={handlePlayPress}>
-          <MaterialIcons
-            name={isPlaying ? 'pause' : 'play-arrow'}
-            size={40}
-            color="#FFF"
-          />
-        </TouchableOpacity>
+        {stationName !== '재생 중이 아님' ? (
+          <TouchableOpacity style={styles.playButton} onPress={handlePlayPress}>
+            <MaterialIcons
+              name={isPlaying ? 'pause' : 'play-arrow'}
+              size={40}
+              color="#FFF"
+            />
+          </TouchableOpacity>
+        ) : null}
+
         <Slider
           style={{width: '80%', height: 40}}
           minimumValue={0}
