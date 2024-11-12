@@ -8,8 +8,10 @@ import {
   TouchableOpacity,
   Dimensions,
   Image,
+  Alert,
 } from 'react-native';
 import {StackNavigationProp} from '@react-navigation/stack';
+import {useActionSheet} from '@expo/react-native-action-sheet';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -63,6 +65,53 @@ function HomeScreen({navigation}: Props): JSX.Element {
   const [recentStationList, setRecentStationList] = useState<RadioStation[]>(
     [],
   );
+
+  const {showActionSheetWithOptions} = useActionSheet();
+
+  const longPress = (stationId: string) => {
+    const options = ['삭제', '전체 삭제', '취소'];
+    const destructiveButtonIndex = [0, 1];
+    const cancelButtonIndex = 2;
+
+    showActionSheetWithOptions(
+      {
+        options,
+        cancelButtonIndex,
+        destructiveButtonIndex,
+      },
+      async (selectedIndex?: number) => {
+        switch (selectedIndex) {
+          case 0:
+            // 삭제
+            const stationLists = await AsyncStorage.getItem('@recent_stations');
+            if (!stationLists) {
+              return;
+            }
+            const parsedStations: RadioStation[] = JSON.parse(stationLists);
+            const updatedStations = parsedStations.filter(
+              station => station.id !== stationId,
+            );
+
+            console.log(updatedStations);
+            // 최근 방송국 목록 업데이트
+            await AsyncStorage.setItem(
+              '@recent_stations',
+              JSON.stringify(updatedStations),
+            );
+            break;
+
+          case 1:
+            // 전체 삭제
+            await AsyncStorage.setItem('@recent_stations', JSON.stringify([]));
+            break;
+
+          case 2:
+            // 취소
+            break;
+        }
+      },
+    );
+  };
 
   const recentScrollView = useRef<ScrollView>(null);
 
@@ -141,7 +190,8 @@ function HomeScreen({navigation}: Props): JSX.Element {
                       ? {backgroundColor: station.color}
                       : null,
                   ]}
-                  onPress={() => handleStationPress(station)}>
+                  onPress={() => handleStationPress(station)}
+                  onLongPress={() => longPress(station.id)}>
                   {/* logo prop이 유효한 컴포넌트인지 확인 */}
                   {station.logo && (
                     <Image
