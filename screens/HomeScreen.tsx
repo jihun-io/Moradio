@@ -19,8 +19,8 @@ type RadioStation = {
   id: string;
   name: string;
   streamUrl: string;
-  color: string;
-  logo: any;
+  color?: string;
+  logo?: any;
 };
 
 type RootStackParamList = {
@@ -29,8 +29,8 @@ type RootStackParamList = {
     stationId: string;
     stationName: string;
     streamUrl: string;
-    stationLogo: any;
-    stationColor: string;
+    stationLogo?: any;
+    stationColor?: string;
   };
 };
 
@@ -177,39 +177,7 @@ function HomeScreen({navigation}: Props): JSX.Element {
                       ? {backgroundColor: station.color}
                       : null,
                   ]}
-                  onPress={async () => {
-                    const recentStations = await AsyncStorage.getItem(
-                      '@recent_stations',
-                    );
-
-                    const recentStationsJSON = recentStations
-                      ? JSON.parse(recentStations)
-                      : [];
-                    const uniqueRecentStations = recentStationsJSON.filter(
-                      (s: RadioStation) => s.id !== station.id,
-                    );
-
-                    await AsyncStorage.setItem(
-                      '@recent_stations',
-                      JSON.stringify([
-                        ...uniqueRecentStations,
-                        {
-                          id: station.id,
-                          name: station.name,
-                          streamUrl: station.streamUrl,
-                          color: station.color,
-                          logo: station.logo,
-                        },
-                      ]),
-                    );
-                    navigation.navigate('RadioPlayer', {
-                      stationId: station.id,
-                      stationName: station.name,
-                      streamUrl: station.streamUrl,
-                      stationLogo: station.logo,
-                      stationColor: station.color || '#333',
-                    });
-                  }}>
+                  onPress={() => handleStationPress(station)}>
                   {/* logo prop이 유효한 컴포넌트인지 확인 */}
                   {station.logo && (
                     <Image
