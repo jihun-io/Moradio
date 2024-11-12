@@ -16,8 +16,29 @@ import TrackPlayer, {
   State,
 } from 'react-native-track-player';
 import Slider from '@react-native-community/slider'; // Slider import
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {usePlayer} from '../contexts/RadioContext';
+
+// 볼륨 값 저장 함수
+const saveVolume = async (volume: number) => {
+  try {
+    await AsyncStorage.setItem('@radio_volume', volume.toString());
+  } catch (error) {
+    console.error('볼륨 저장 실패:', error);
+  }
+};
+
+// 저장된 볼륨 값 불러오기 함수
+const loadVolume = async () => {
+  try {
+    const savedVolume = await AsyncStorage.getItem('@radio_volume');
+    return savedVolume ? parseFloat(savedVolume) : 0.5; // 기본값 0.5
+  } catch (error) {
+    console.error('볼륨 불러오기 실패:', error);
+    return 0.5; // 에러 시 기본값 반환
+  }
+};
 
 export const setupPlayer = async () => {
   try {
@@ -36,9 +57,11 @@ export const setupPlayer = async () => {
 
 type RootStackParamList = {
   RadioPlayer: {
+    stationId: string;
     stationName: string;
     streamUrl: string;
     stationLogo: any;
+    stationColor: string;
   };
 };
 
@@ -51,7 +74,18 @@ type Props = {
 function RadioPlayerScreen({route}: Props): JSX.Element {
   const {isPlaying, setIsPlaying} = usePlayer();
   const [isLoading, setIsLoading] = useState(true);
-  const [volume, setVolume] = useState(1.0); // 0.0 ~ 1.0 사이 값
+  const [volume, setVolume] = useState(0.5); // 0.0 ~ 1.0 사이 값
+
+  useEffect(() => {
+    // 컴포넌트 마운트 시 저장된 볼륨 불러오기
+    const initVolume = async () => {
+      const savedVolume = await loadVolume();
+      setVolume(savedVolume);
+      await TrackPlayer.setVolume(savedVolume);
+    };
+
+    initVolume();
+  }, []);
 
   const handlePlayPress = () => {
     if (isPlaying) {
@@ -63,22 +97,26 @@ function RadioPlayerScreen({route}: Props): JSX.Element {
   };
 
   const handleVolumeChange = async (value: number) => {
-    try {
-      await TrackPlayer.setVolume(value);
-      setVolume(value);
-    } catch (error) {
-      console.log('Error setting volume:', error);
-    }
+    setVolume(value);
+    await TrackPlayer.setVolume(value);
+    await saveVolume(value);
   };
 
-  const {stationName, streamUrl, stationLogo} = (() => {
-    if (!route.params) {
-      console.log(usePlayer);
-      return {stationName: '재생 중이 아님', streamUrl: '', stationLogo: ''};
-    } else {
-      return route.params;
-    }
-  })();
+  const {stationId, stationName, streamUrl, stationLogo, stationColor} =
+    (() => {
+      if (!route.params) {
+        console.log(usePlayer);
+        return {
+          stationName: '재생 중이 아님',
+          streamUrl: '',
+          stationLogo: null,
+          stationColor: '',
+          stationId: '',
+        };
+      } else {
+        return route.params;
+      }
+    })();
 
   // 트랙 플레이어 이벤트 리스너 등록
   useTrackPlayerEvents(
@@ -113,6 +151,7 @@ function RadioPlayerScreen({route}: Props): JSX.Element {
 
   useEffect(() => {
     // 방송국이 변경될 때마다 실행
+
     const loadStation = async () => {
       try {
         // 현재 재생 상태 확인
