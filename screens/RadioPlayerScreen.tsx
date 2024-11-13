@@ -14,6 +14,7 @@ import TrackPlayer, {
   Event,
   useTrackPlayerEvents,
   State,
+  TrackType,
 } from 'react-native-track-player';
 import Slider from '@react-native-community/slider'; // Slider import
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -42,12 +43,12 @@ const loadVolume = async () => {
 
 export const setupPlayer = async () => {
   try {
-    await TrackPlayer.setupPlayer();
+    await TrackPlayer.setupPlayer({
+      // HLS 스트리밍을 위한 설정 추가
+      waitForBuffer: true,
+    });
     await TrackPlayer.updateOptions({
       capabilities: [Capability.Play, Capability.Pause, Capability.Stop],
-      android: {
-        // 안드로이드 설정
-      },
     });
     console.log('Player setup complete');
   } catch (error) {
@@ -173,6 +174,9 @@ function RadioPlayerScreen({route}: Props): JSX.Element {
           title: stationName,
           artist: 'Moradio',
           artwork: stationLogo ? stationLogo : null,
+          // HLS 스트리밍을 위한 추가 설정
+          type: TrackType.HLS, // 스트림 타입을 명시적으로 지정
+          isLive: true, // 라이브 스트리밍임을 명시
         });
 
         // 재생 시작
