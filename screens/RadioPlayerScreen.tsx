@@ -19,6 +19,8 @@ import TrackPlayer, {
 import Slider from '@react-native-community/slider'; // Slider import
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+import {API_URL} from '@env';
+
 import {usePlayer} from '../contexts/RadioContext';
 
 // 볼륨 값 저장 함수
@@ -170,7 +172,7 @@ function RadioPlayerScreen({route}: Props): JSX.Element {
 
         // 새 트랙 추가
         await TrackPlayer.add({
-          url: `https://radio.ztqckg569b.workers.dev/stream/${streamUrl}`,
+          url: `${API_URL}${streamUrl}`,
           title: stationName,
           artist: 'Moradio',
           artwork: stationLogo ? stationLogo : null,
