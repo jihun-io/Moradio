@@ -1,5 +1,5 @@
 // screens/HomeScreen.tsx
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useEffect, useRef, Suspense} from 'react';
 import {
   View,
   Text,
@@ -24,6 +24,8 @@ import {useActionSheet} from '@expo/react-native-action-sheet';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {STATION_CATEGORIES} from '../constants/categories';
+
+import StationsList from '../components/stationsList';
 
 type RadioStation = {
   id: string;
@@ -185,6 +187,7 @@ function HomeScreen({navigation}: Props): JSX.Element {
         <Text style={{...styles.sectionTitle, color: colors.text}}>
           최근 재생한 방송국
         </Text>
+
         <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}
@@ -225,47 +228,8 @@ function HomeScreen({navigation}: Props): JSX.Element {
             ))
           )}
         </ScrollView>
+        <StationsList />
       </View>
-      {STATION_CATEGORIES.map(category => (
-        // 각 카테고리 섹션
-        <View key={category.id} style={styles.section}>
-          <Text style={{...styles.sectionTitle, color: colors.text}}>
-            {category.name}
-          </Text>
-
-          {/* 방송국 카드들을 가로 스크롤로 표시 */}
-          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            {category.stations.map(station => (
-              <View key={station.id}>
-                <TouchableOpacity
-                  style={[
-                    styles.card,
-                    !station.logo && station.color
-                      ? {backgroundColor: station.color}
-                      : null,
-                  ]}
-                  onPress={() => handleStationPress(station)}>
-                  {/* logo prop이 유효한 컴포넌트인지 확인 */}
-                  {station.logo && (
-                    <Image
-                      source={station.logo}
-                      style={{
-                        width: CARD_WIDTH,
-                        height: CARD_WIDTH,
-                        borderRadius: 12,
-                        resizeMode: 'contain',
-                      }}
-                    />
-                  )}
-                </TouchableOpacity>
-                <Text style={{...styles.stationName, color: colors.text}}>
-                  {station.name}
-                </Text>
-              </View>
-            ))}
-          </ScrollView>
-        </View>
-      ))}
     </ScrollView>
   );
 }
