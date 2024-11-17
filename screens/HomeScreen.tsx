@@ -110,11 +110,13 @@ function HomeScreen({navigation}: Props): JSX.Element {
               '@recent_stations',
               JSON.stringify(updatedStations),
             );
+            setRecentStationList(updatedStations);
             break;
 
           case 1:
             // 전체 삭제
             await AsyncStorage.setItem('@recent_stations', JSON.stringify([]));
+            setRecentStationList([]);
             break;
 
           case 2:
