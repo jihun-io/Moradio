@@ -28,6 +28,8 @@ import wbsLogo from '../assets/images/stations/wbs.png';
 export const stationImages: {[key: string]: any} = {
   bbs: bbsLogo,
   cbs: cbsLogo,
+  cbssfm: cbsLogo,
+  cbsmfm: cbsLogo,
   cpbc: cpbcLogo,
   ebs: ebsLogo,
   febc: febcLogo,
