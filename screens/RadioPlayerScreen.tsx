@@ -23,6 +23,8 @@ import {API_URL} from '@env';
 
 import {usePlayer} from '../contexts/RadioContext';
 
+import {stationImages} from '../constants/stationsLogo';
+
 // 볼륨 값 저장 함수
 const saveVolume = async (volume: number) => {
   try {
@@ -172,7 +174,7 @@ function RadioPlayerScreen({route}: Props): JSX.Element {
 
         // 새 트랙 추가
         await TrackPlayer.add({
-          url: `${API_URL}${streamUrl}`,
+          url: `${API_URL}/stream/${streamUrl}`,
           title: stationName,
           artist: 'Moradio',
           artwork: stationLogo ? stationLogo : null,
@@ -218,7 +220,10 @@ function RadioPlayerScreen({route}: Props): JSX.Element {
           {isLoading && stationName !== '재생 중이 아님' ? (
             <ActivityIndicator size="large" color="#fff" />
           ) : stationName !== '재생 중이 아님' ? (
-            <Image source={stationLogo} style={styles.stationLogo} />
+            <Image
+              source={stationImages[stationLogo]}
+              style={styles.stationLogo}
+            />
           ) : (
             <Text style={{fontSize: 24, color: '#fff'}}>{stationName}</Text>
           )}
