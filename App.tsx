@@ -9,6 +9,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createStackNavigator} from '@react-navigation/stack';
 import RadioPlayerScreen, {setupPlayer} from './screens/RadioPlayerScreen';
 import HomeScreen from './screens/HomeScreen';
+import Settings from './screens/SettingsScreen';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {useTrackPlayerEvents, Event} from 'react-native-track-player';
 import {
@@ -57,6 +58,8 @@ function AppContent() {
               iconName = focused ? 'radio' : 'radio-outlined';
             } else if (route.name === 'RadioPlayer') {
               iconName = focused ? 'play-circle-filled' : 'play-circle-outline';
+            } else if (route.name === 'Settings') {
+              iconName = focused ? 'settings' : 'settings';
             }
             return <MaterialIcons name={iconName} size={size} color={color} />;
           },
@@ -76,6 +79,15 @@ function AppContent() {
             headerShown: true,
             headerTitle: '플레이어',
             tabBarLabel: '플레이어',
+          }}
+        />
+        <Tab.Screen
+          name="Settings"
+          component={Settings}
+          options={{
+            headerShown: true,
+            headerTitle: '설정',
+            tabBarLabel: '설정',
           }}
         />
       </Tab.Navigator>
