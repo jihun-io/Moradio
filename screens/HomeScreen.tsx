@@ -228,7 +228,11 @@ function HomeScreen({navigation}: Props): JSX.Element {
             ))
           )}
         </ScrollView>
-        <StationsList />
+        <StationsList
+          onStationSelect={handleStationPress}
+          setRecentStationList={setRecentStationList}
+          recentScrollViewRef={recentScrollView}
+        />
       </View>
     </ScrollView>
   );

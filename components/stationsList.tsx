@@ -13,6 +13,14 @@ import {API_URL} from '@env';
 import {useNavigation} from '@react-navigation/native';
 import type {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {stationImages} from '../constants/stationsLogo';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {RadioStation} from '../constants/stations';
+
+type StationsListProps = {
+  onStationSelect: (station: RadioStation) => Promise<void>;
+  setRecentStationList: React.Dispatch<React.SetStateAction<RadioStation[]>>;
+  recentScrollViewRef: React.RefObject<ScrollView>;
+};
 
 type Station = {
   category: string;
@@ -44,7 +52,11 @@ type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
 const CARD_WIDTH = Dimensions.get('window').width * 0.4; // 화면 너비의 40%
 
-const StationsList: React.FC = () => {
+const StationsList: React.FC<StationsListProps> = ({
+  onStationSelect,
+  setRecentStationList,
+  recentScrollViewRef,
+}) => {
   const [stations, setStations] = useState<Station[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -97,14 +109,37 @@ const StationsList: React.FC = () => {
     return acc;
   }, {} as Record<string, Station[]>);
 
-  const handleStationPress = (station: any) => {
-    navigation.navigate('RadioPlayer', {
-      stationId: station.id,
-      stationName: station.name,
-      streamUrl: station.streamUrl,
-      stationLogo: station.logo,
-      stationColor: station.color,
-    });
+  const handleStationPress = async (station: any) => {
+    try {
+      const recentStations = await AsyncStorage.getItem('@recent_stations');
+      const parsedStations: RadioStation[] = recentStations
+        ? JSON.parse(recentStations)
+        : [];
+
+      const filteredStations = parsedStations.filter(s => s.id !== station.id);
+      const updatedStations = [...filteredStations, station].slice(0, 5);
+
+      await AsyncStorage.setItem(
+        '@recent_stations',
+        JSON.stringify(updatedStations),
+      );
+
+      // 상태 즉시 반영을 위해 직접 업데이트
+      setRecentStationList(updatedStations);
+
+      // 최근 재생 목록의 스크롤을 맨 앞으로 이동
+      recentScrollViewRef.current?.scrollTo({x: 0});
+
+      navigation.navigate('RadioPlayer', {
+        stationId: station.id,
+        stationName: station.name,
+        streamUrl: station.streamUrl,
+        stationLogo: station.logo,
+        stationColor: station.color,
+      });
+    } catch (error) {
+      console.error('최근 방송국 저장 실패:', error);
+    }
   };
 
   return (
