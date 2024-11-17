@@ -26,6 +26,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {STATION_CATEGORIES} from '../constants/categories';
 
 import StationsList from '../components/stationsList';
+import {stationImages} from '../constants/stationsLogo';
 
 type RadioStation = {
   id: string;
@@ -211,7 +212,7 @@ function HomeScreen({navigation}: Props): JSX.Element {
                   {/* logo prop이 유효한 컴포넌트인지 확인 */}
                   {station.logo && (
                     <Image
-                      source={station.logo}
+                      source={stationImages[station.logo]}
                       style={{
                         width: CARD_WIDTH,
                         height: CARD_WIDTH,
