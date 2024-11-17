@@ -117,7 +117,7 @@ const StationsList: React.FC<StationsListProps> = ({
         : [];
 
       const filteredStations = parsedStations.filter(s => s.id !== station.id);
-      const updatedStations = [...filteredStations, station].slice(0, 5);
+      const updatedStations = [...filteredStations, station];
 
       await AsyncStorage.setItem(
         '@recent_stations',
