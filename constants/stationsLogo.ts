@@ -47,6 +47,7 @@ export const stationImages: {[key: string]: any} = {
   sbspowerfm: sbspowerfmLogo,
   tbsefm: tbsefmLogo,
   tbsfm: tbsfmLogo,
+  tbnLogo: tbnLogo,
   ytn: ytnLogo,
   tbn: tbnLogo,
   obs: obsLogo,
