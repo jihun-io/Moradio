@@ -8,9 +8,12 @@ import {
 } from 'react-native';
 import {Check} from 'lucide-react-native';
 
+import {useTheme} from '@react-navigation/native';
+
 import {REGIONS} from '../constants/regions';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useRegionsStore} from '../stores/useRegionsStore';
+import {Colors} from 'react-native/Libraries/NewAppScreen';
 
 interface SettingsListItemProps {
   title: string;
@@ -23,16 +26,18 @@ const SettingsListItem: React.FC<SettingsListItemProps> = ({
   selected,
   onPress,
 }) => {
+  const {colors} = useTheme();
+
   return (
     <TouchableOpacity
-      style={styles.itemsContainer}
+      style={{...styles.itemsContainer, backgroundColor: colors.card}}
       onPress={onPress}
       activeOpacity={0.6}>
       <View style={styles.leftContent}>
         <View style={styles.checkContainer}>
-          {selected ? <Check size={20} color="#007AFF" /> : null}
+          {selected ? <Check size={20} color={colors.primary} /> : null}
         </View>
-        <Text style={styles.title}>{title}</Text>
+        <Text style={{...styles.title, color: colors.text}}>{title}</Text>
       </View>
     </TouchableOpacity>
   );
@@ -41,6 +46,8 @@ const SettingsListItem: React.FC<SettingsListItemProps> = ({
 export default function Settings() {
   const {selectedRegions, toggleRegion} = useRegionsStore();
   const [isLoading, setIsLoading] = useState(true);
+
+  const {colors} = useTheme();
 
   useEffect(() => {
     const init = async () => {
@@ -53,9 +60,20 @@ export default function Settings() {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.section}>
-        <Text style={{paddingHorizontal: 16, paddingBottom: 7}}>지역 선택</Text>
+        <Text
+          style={{
+            paddingHorizontal: 16,
+            paddingBottom: 7,
+            color: colors.systemGray,
+          }}>
+          지역 선택
+        </Text>
         <View style={styles.sectionWrapper}>
-          <View style={styles.sectionContainer}>
+          <View
+            style={{
+              ...styles.sectionContainer,
+              backgroundColor: colors.card,
+            }}>
             {REGIONS.map((region, index) => (
               <React.Fragment key={region.id}>
                 <SettingsListItem
@@ -65,7 +83,12 @@ export default function Settings() {
                   onPress={() => toggleRegion(region.id)}
                 />
                 {index < REGIONS.length - 1 && (
-                  <View style={styles.separator} />
+                  <View
+                    style={{
+                      ...styles.separator,
+                      backgroundColor: colors.border,
+                    }}
+                  />
                 )}
               </React.Fragment>
             ))}
@@ -88,7 +111,6 @@ const styles = StyleSheet.create({
     // paddingTop: 20,
   },
   sectionContainer: {
-    backgroundColor: 'white',
     borderRadius: 10,
     overflow: 'hidden',
   },
@@ -96,11 +118,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    backgroundColor: 'white',
     paddingVertical: 11,
     paddingHorizontal: 16,
     minHeight: 44,
-    borderRadius: 10,
   },
   leftContent: {
     flexDirection: 'row',
@@ -116,12 +136,10 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 17,
-    color: '#000000',
     fontWeight: '400',
   },
   separator: {
     height: StyleSheet.hairlineWidth,
-    backgroundColor: '#C6C6C8',
     marginLeft: 16,
   },
   checkContainer: {

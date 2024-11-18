@@ -100,6 +100,8 @@ const theme = {
   colors: {
     ...DefaultTheme.colors,
     primary: '#DC2E2E',
+    systemGray: '#8e8e93',
+    border: '#aeaeb2',
   },
 };
 
@@ -108,6 +110,9 @@ const darkTheme = {
   colors: {
     ...DarkTheme.colors,
     primary: '#DC2E2E',
+    systemGray: '#8e8e93',
+    card: 'rgb(26,26,28)',
+    border: '#636366',
   },
 };
 
