@@ -10,55 +10,12 @@ import {Check} from 'lucide-react-native';
 
 import {REGIONS} from '../constants/regions';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useRegionsStore} from '../stores/useRegionsStore';
 
 interface SettingsListItemProps {
   title: string;
   selected: boolean | undefined;
   onPress: () => void;
-}
-
-async function loadRegions() {
-  try {
-    const selectedRegions = await AsyncStorage.getItem('selectedRegions');
-
-    if (!selectedRegions) {
-      const init = ['capital'];
-      await AsyncStorage.setItem('selectedRegions', JSON.stringify(init));
-      return init;
-    }
-
-    return JSON.parse(selectedRegions);
-  } catch (error) {
-    console.error('Error loading regions:', error);
-    return ['capital']; // 오류 발생 시 기본값 반환
-  }
-}
-
-async function setRegions(id: string) {
-  try {
-    const selectedRegions = await loadRegions();
-
-    if (selectedRegions.includes(id)) {
-      const updatedRegions = selectedRegions.filter(
-        (region: string) => region !== id,
-      );
-      await AsyncStorage.setItem(
-        'selectedRegions',
-        JSON.stringify(updatedRegions),
-      );
-      return updatedRegions;
-    } else {
-      const updatedRegions = [...selectedRegions, id];
-      await AsyncStorage.setItem(
-        'selectedRegions',
-        JSON.stringify(updatedRegions),
-      );
-      return updatedRegions;
-    }
-  } catch (error) {
-    console.error('Error setting regions:', error);
-    return;
-  }
 }
 
 const SettingsListItem: React.FC<SettingsListItemProps> = ({
@@ -82,34 +39,16 @@ const SettingsListItem: React.FC<SettingsListItemProps> = ({
 };
 
 export default function Settings() {
-  const [selectedRegions, setSelectedRegions] = useState<string[]>(['capital']);
+  const {selectedRegions, toggleRegion} = useRegionsStore();
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const fetchRegions = async () => {
-      try {
-        const regions = await loadRegions();
-        setSelectedRegions(regions);
-      } catch (error) {
-        console.error('Error fetching regions:', error);
-      } finally {
-        setIsLoading(false);
-      }
+    const init = async () => {
+      await useRegionsStore.getState().initRegions();
+      setIsLoading(false);
     };
-
-    fetchRegions();
+    init();
   }, []);
-
-  const handleRegionSelect = async (id: string) => {
-    try {
-      const updatedRegions = await setRegions(id);
-      if (updatedRegions) {
-        setSelectedRegions(updatedRegions);
-      }
-    } catch (error) {
-      console.error('Error updating regions:', error);
-    }
-  };
 
   return (
     <ScrollView style={styles.container}>
@@ -123,7 +62,7 @@ export default function Settings() {
                   key={region.id}
                   title={region.name}
                   selected={selectedRegions.includes(region.id)}
-                  onPress={() => handleRegionSelect(region.id)}
+                  onPress={() => toggleRegion(region.id)}
                 />
                 {index < REGIONS.length - 1 && (
                   <View style={styles.separator} />
