@@ -214,7 +214,7 @@ function HomeScreen({navigation}: Props): JSX.Element {
                   {/* logo prop이 유효한 컴포넌트인지 확인 */}
                   {station.logo && (
                     <Image
-                      source={stationImages[station.logo]}
+                      source={stationImages[station.id]}
                       style={{
                         width: CARD_WIDTH,
                         height: CARD_WIDTH,
