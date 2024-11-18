@@ -177,7 +177,7 @@ function RadioPlayerScreen({route}: Props): JSX.Element {
           url: `${API_URL}/stream/${streamUrl}`,
           title: stationName,
           artist: 'Moradio',
-          artwork: stationLogo ? stationLogo : null,
+          artwork: stationImages[stationId] ? stationImages[stationId] : null,
           // HLS 스트리밍을 위한 추가 설정
           type: TrackType.HLS, // 스트림 타입을 명시적으로 지정
           isLive: true, // 라이브 스트리밍임을 명시
