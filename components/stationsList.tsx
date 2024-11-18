@@ -16,6 +16,8 @@ import {stationImages} from '../constants/stationsLogo';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {RadioStation} from '../constants/stations';
 
+import {useRegionsStore} from '../stores/useRegionsStore';
+
 type StationsListProps = {
   onStationSelect: (station: RadioStation) => Promise<void>;
   setRecentStationList: React.Dispatch<React.SetStateAction<RadioStation[]>>;
@@ -57,6 +59,8 @@ const StationsList: React.FC<StationsListProps> = ({
   setRecentStationList,
   recentScrollViewRef,
 }) => {
+  const {selectedRegions} = useRegionsStore();
+
   const [stations, setStations] = useState<Station[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -67,12 +71,11 @@ const StationsList: React.FC<StationsListProps> = ({
     const fetchStations = async () => {
       try {
         const response = await fetch(
-          `${API_URL}/stations?region=korea,capital`,
+          `${API_URL}/stations?region=korea,${selectedRegions.join(',')}`,
         );
         const data = await response.json();
         setStations(data);
       } catch (err) {
-        console.error('Failed to fetch stations:', err);
         setError('방송국 목록을 불러오는데 실패했습니다.');
       } finally {
         setLoading(false);
@@ -80,7 +83,7 @@ const StationsList: React.FC<StationsListProps> = ({
     };
 
     fetchStations();
-  }, []);
+  }, [selectedRegions]);
 
   if (loading) {
     return <ActivityIndicator size="large" style={{paddingVertical: 30}} />;
@@ -188,7 +191,7 @@ const StationsList: React.FC<StationsListProps> = ({
               } else {
                 return station.stations.map(channel => (
                   <TouchableOpacity
-                    key={station.id}
+                    key={channel.name}
                     style={styles.stationCard}
                     onPress={() =>
                       handleStationPress({
