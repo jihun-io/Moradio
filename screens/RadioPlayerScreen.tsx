@@ -65,7 +65,7 @@ type RootStackParamList = {
     stationId: string;
     stationName: string;
     streamUrl: string;
-    stationLogo: any;
+    stationLogo: string;
     stationColor: string;
   };
 };
@@ -221,7 +221,7 @@ function RadioPlayerScreen({route}: Props): JSX.Element {
             <ActivityIndicator size="large" color="#fff" />
           ) : stationName !== '재생 중이 아님' ? (
             <Image
-              source={stationImages[stationLogo]}
+              source={stationImages[stationId]}
               style={styles.stationLogo}
             />
           ) : (

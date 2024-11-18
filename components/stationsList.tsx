@@ -204,7 +204,7 @@ const StationsList: React.FC<StationsListProps> = ({
                             : `&city=${channel.city}`
                         }`,
                         name: channel.name,
-                        logo: `/assets/images/stations/${station.id}.png`,
+                        logo: `/assets/images/stations/${station.id.toLowerCase()}.png`,
                       })
                     }>
                     <Image
