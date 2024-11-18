@@ -101,6 +101,8 @@ const StationsList: React.FC<StationsListProps> = ({
       category = '종교 방송';
     } else if (category === 'local') {
       category = '지역 방송';
+    } else if (category === 'traffic') {
+      category = 'TBN';
     } else if (category === 'extra') {
       category = '기타';
     }
@@ -196,7 +198,11 @@ const StationsList: React.FC<StationsListProps> = ({
                     onPress={() =>
                       handleStationPress({
                         id: station.id,
-                        streamUrl: `?stn=${station.id.toLowerCase()}`,
+                        streamUrl: `?stn=${station.id.toLowerCase()}${
+                          channel.city === 'korea' || channel.city === 'seoul'
+                            ? ''
+                            : `&city=${channel.city}`
+                        }`,
                         name: channel.name,
                         logo: `/assets/images/stations/${station.id}.png`,
                       })
