@@ -10,7 +10,7 @@ import {
   Dimensions,
 } from 'react-native';
 import {API_URL} from '@env';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useTheme} from '@react-navigation/native';
 import type {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {stationImages} from '../constants/stationsLogo';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -66,6 +66,8 @@ const StationsList: React.FC<StationsListProps> = ({
   const [error, setError] = useState<string | null>(null);
 
   const navigation = useNavigation<NavigationProp>();
+
+  const {colors} = useTheme();
 
   useEffect(() => {
     const fetchStations = async () => {
@@ -151,7 +153,9 @@ const StationsList: React.FC<StationsListProps> = ({
     <>
       {Object.entries(groupedStations).map(([category, stationList]) => (
         <View key={category} style={styles.section}>
-          <Text style={styles.categoryTitle}>{category}</Text>
+          <Text style={{...styles.categoryTitle, color: colors.text}}>
+            {category}
+          </Text>
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             {stationList.map(station => {
               if (station.channels) {
@@ -184,7 +188,7 @@ const StationsList: React.FC<StationsListProps> = ({
                         }
                         defaultSource={require('../assets/images/stations/default.png')}
                       />
-                      <Text style={styles.stationName}>
+                      <Text style={{...styles.stationName, color: colors.text}}>
                         {`${localChannel.name} ${channel.name}`}
                       </Text>
                     </TouchableOpacity>
@@ -212,7 +216,9 @@ const StationsList: React.FC<StationsListProps> = ({
                       source={stationImages[station.id]}
                       defaultSource={require('../assets/images/stations/default.png')}
                     />
-                    <Text style={styles.stationName}>{channel.name}</Text>
+                    <Text style={{...styles.stationName, color: colors.text}}>
+                      {channel.name}
+                    </Text>
                   </TouchableOpacity>
                 ));
               }
