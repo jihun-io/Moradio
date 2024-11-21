@@ -31,14 +31,35 @@
 - 최근 재생한 방송국 목록이 AsyncStorage에 저장됩니다.
 - 다크 모드를 지원합니다.
 
-## 4. 도움을 주신 분
+## 4. 기능 상세
+```mermaid
+sequenceDiagram
+    participant B as 백엔드
+    box 프론트엔드 (React Native)
+    participant UI as UI 컴포넌트
+    participant TP as 플레이어
+    end
+
+    UI->>B: 1. 방송사 목록 요청
+    B-->>UI: 2. 방송사 목록 & 방송 ID 반환
+    
+    Note over UI: 사용자가 방송 선택
+    
+    UI->>B: 3. 선택된 방송 ID 전송
+    B-->>UI: 4. 스트리밍 URL(m3u8) 반환
+    
+    UI->>TP: 5. 스트리밍 URL 전달
+    Note over TP: react-native-track-player로<br/>스트리밍 재생
+```
+
+## 5. 도움을 주신 분
 
 각 방송사의 라디오 스트리밍 URL을 정리해 주신 [**블루스크린 (BSofDeath)**](https://github.com/BSofDeath)님께 진심으로 감사드립니다. 블루스크린님의 프로젝트 덕분에 Moradio를 개발할 수 있었습니다.
 
 - 참고한 블로그 게시글은 다음과 같습니다: https://blog.bsod.kr/137
 - 참고한 GitHub 리포지토리는 다음과 같습니다: https://github.com/BSofDeath/radio.bsod.kr
 
-## 5. 방송사 목록
+## 6. 방송사 목록
 
 - KBS
   - KBS 1라디오
@@ -96,14 +117,14 @@
   - 국방FM
   - 국악방송
 
-## 6. 향후 계획
+## 7. 향후 계획
 
 - [ ] 즐겨찾기 기능 추가
 - [ ] 방송국 검색 기능 추가
 - [ ] 위젯 지원
 - [ ] CarPlay 및 Android Auto 지원
 
-## 7. 참고 사항
+## 8. 참고 사항
 
 - Moradio는 각 방송사의 공개된 라디오 스트리밍 URL을 접속자의 디바이스로 중개하는 애플리케이션이며, Moradio는 방송을 절대 녹취하거나 재송신하지 않습니다.
 
