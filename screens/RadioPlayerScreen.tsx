@@ -131,16 +131,25 @@ function RadioPlayerScreen({route}: Props): JSX.Element {
       Event.PlaybackTrackChanged,
       Event.PlaybackActiveTrackChanged,
       Event.PlaybackPlayWhenReadyChanged,
+      Event.RemotePause, // 시스템에서 일시정지 이벤트 감지
+      Event.RemotePlay, // 시스템에서 재생 이벤트 감지
+      Event.PlaybackQueueEnded, // 재생 큐가 끝났을 때 이벤트 감지
+      Event.RemoteStop, // iOS에서 중요
+      Event.RemoteDuck, // iOS에서 오디오 덕킹(볼륨 감소) 이벤트
     ],
     async event => {
+      console.log('Track player event:', event.type);
+      
       if (event.type === Event.PlaybackError) {
         console.log('An error occurred', event.message);
+        setIsPlaying(false); // 에러 발생 시 재생 상태 업데이트
       }
       if (event.type === Event.PlaybackState) {
         console.log('Playback state changed:', event.state);
         // Ready 또는 Playing 상태가 되면 로딩 완료
         if (event.state === State.Ready || event.state === State.Playing) {
           setIsLoading(false);
+          setIsPlaying(true); // 재생 상태로 변경
         }
         // Buffer, Connecting 상태면 로딩 중
         if (
@@ -149,8 +158,41 @@ function RadioPlayerScreen({route}: Props): JSX.Element {
         ) {
           setIsLoading(true);
         }
+        // Paused, Stopped, None 상태면 일시정지로 변경
+        if (
+          event.state === State.Paused || 
+          event.state === State.Stopped ||
+          event.state === State.None
+        ) {
+          setIsPlaying(false);
+        }
       }
-      // 필요한 경우 다른 이벤트도 처리
+      // 시스템에서 일시정지 이벤트가 발생했을 때
+      if (event.type === Event.RemotePause) {
+        setIsPlaying(false);
+      }
+      // 시스템에서 재생 이벤트가 발생했을 때
+      if (event.type === Event.RemotePlay) {
+        setIsPlaying(true);
+      }
+      // 시스템에서 정지 이벤트가 발생했을 때 (iOS에서 중요)
+      if (event.type === Event.RemoteStop) {
+        console.log('Remote stop event');
+        setIsPlaying(false);
+      }
+      // 오디오 덕킹 이벤트 (iOS에서 다른 앱이 오디오 재생 시 발생)
+      if (event.type === Event.RemoteDuck) {
+        console.log('Remote duck event:', event.paused, event.permanent);
+        // paused가 true이면 다른 앱이 오디오를 재생하기 시작한 경우
+        if (event.paused === true) {
+          setIsPlaying(false);
+        }
+      }
+      // 재생 큐가 끝났을 때 (다른 앱이 미디어를 재생하는 경우 등)
+      if (event.type === Event.PlaybackQueueEnded) {
+        console.log('Playback queue ended');
+        setIsPlaying(false);
+      }
     },
   );
 
