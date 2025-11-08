@@ -1,16 +1,16 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from "react";
 import {
   View,
   ScrollView,
   Text,
   StyleSheet,
   TouchableOpacity,
-} from 'react-native';
-import {Check} from 'lucide-react-native';
-import {useTheme} from '@react-navigation/native';
-import {REGIONS} from '../../constants/regions';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import {useRegionsStore} from '../../stores/useRegionsStore';
+} from "react-native";
+import { Check } from "lucide-react-native";
+import { useTheme } from "@react-navigation/native";
+import { REGIONS } from "../../constants/regions";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useRegionsStore } from "../../stores/useRegionsStore";
 
 interface SettingsListItemProps {
   title: string;
@@ -23,27 +23,28 @@ const SettingsListItem: React.FC<SettingsListItemProps> = ({
   selected,
   onPress,
 }) => {
-  const {colors} = useTheme();
+  const { colors } = useTheme();
 
   return (
     <TouchableOpacity
-      style={{...styles.itemsContainer, backgroundColor: colors.card}}
+      style={{ ...styles.itemsContainer, backgroundColor: colors.card }}
       onPress={onPress}
-      activeOpacity={0.6}>
+      activeOpacity={0.6}
+    >
       <View style={styles.leftContent}>
         <View style={styles.checkContainer}>
           {selected ? <Check size={20} color={colors.primary} /> : null}
         </View>
-        <Text style={{...styles.title, color: colors.text}}>{title}</Text>
+        <Text style={{ ...styles.title, color: colors.text }}>{title}</Text>
       </View>
     </TouchableOpacity>
   );
 };
 
 export default function SettingsScreen() {
-  const {selectedRegions, toggleRegion} = useRegionsStore();
+  const { selectedRegions, toggleRegion } = useRegionsStore();
   const [isLoading, setIsLoading] = useState(true);
-  const {colors} = useTheme();
+  const { colors } = useTheme();
 
   useEffect(() => {
     const init = async () => {
@@ -54,14 +55,17 @@ export default function SettingsScreen() {
   }, []);
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView
+      style={{ ...styles.container, backgroundColor: colors.background }}
+    >
       <View style={styles.section}>
         <Text
           style={{
             paddingHorizontal: 16,
             paddingBottom: 7,
             color: colors.systemGray,
-          }}>
+          }}
+        >
           지역 선택
         </Text>
         <View style={styles.sectionWrapper}>
@@ -69,7 +73,8 @@ export default function SettingsScreen() {
             style={{
               ...styles.sectionContainer,
               backgroundColor: colors.card,
-            }}>
+            }}
+          >
             {REGIONS.map((region, index) => (
               <React.Fragment key={region.id}>
                 <SettingsListItem
@@ -105,31 +110,31 @@ const styles = StyleSheet.create({
   sectionWrapper: {},
   sectionContainer: {
     borderRadius: 10,
-    overflow: 'hidden',
+    overflow: "hidden",
   },
   itemsContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
     paddingVertical: 11,
     paddingHorizontal: 16,
     minHeight: 44,
   },
   leftContent: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
   },
   iconContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
     paddingVertical: 11,
     paddingHorizontal: 16,
     minHeight: 44,
   },
   title: {
     fontSize: 17,
-    fontWeight: '400',
+    fontWeight: "400",
   },
   separator: {
     height: StyleSheet.hairlineWidth,

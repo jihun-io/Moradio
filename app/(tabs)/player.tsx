@@ -6,8 +6,10 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   Image,
+  useColorScheme,
 } from "react-native";
 import { useLocalSearchParams } from "expo-router";
+import { useTheme } from "@react-navigation/native";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import TrackPlayer, {
   Capability,
@@ -42,6 +44,8 @@ const loadVolume = async () => {
 
 export default function RadioPlayerScreen() {
   const params = useLocalSearchParams();
+  const { colors } = useTheme();
+  const colorScheme = useColorScheme();
   const { isPlaying, setIsPlaying, currentStation, setCurrentStation } = usePlayer();
   const [isLoading, setIsLoading] = useState(true);
   const [volume, setVolume] = useState(0.5);
@@ -208,10 +212,12 @@ export default function RadioPlayerScreen() {
   }, [stationName, streamUrl]);
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: colors.background }]}>
       <View style={styles.stationInfo}>
         {stationName === "재생 중이 아님" ? null : (
-          <Text style={styles.stationName}>{stationName}</Text>
+          <Text style={[styles.stationName, { color: colors.text }]}>
+            {stationName}
+          </Text>
         )}
       </View>
 
@@ -224,14 +230,16 @@ export default function RadioPlayerScreen() {
       >
         <View style={styles.programInfo}>
           {isLoading && stationName !== "재생 중이 아님" ? (
-            <ActivityIndicator size="large" color="#fff" />
+            <ActivityIndicator size="large" color={colors.primary} />
           ) : stationName !== "재생 중이 아님" ? (
             <Image
               source={stationImages[stationId]}
               style={styles.stationLogo}
             />
           ) : (
-            <Text style={{ fontSize: 24, color: "#fff" }}>{stationName}</Text>
+            <Text style={{ fontSize: 24, color: colors.text }}>
+              {stationName}
+            </Text>
           )}
         </View>
       </View>
@@ -254,8 +262,8 @@ export default function RadioPlayerScreen() {
           value={volume}
           onValueChange={handleVolumeChange}
           step={0.01}
-          minimumTrackTintColor="#FFFFFF"
-          maximumTrackTintColor="#000000"
+          minimumTrackTintColor={colors.primary}
+          maximumTrackTintColor={colorScheme === "dark" ? "#666" : "#ccc"}
         />
       </View>
     </View>
@@ -265,7 +273,6 @@ export default function RadioPlayerScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#000",
     paddingHorizontal: 20,
     justifyContent: "space-between",
     paddingTop: 120,
@@ -277,7 +284,6 @@ const styles = StyleSheet.create({
   stationName: {
     fontSize: 24,
     fontWeight: "bold",
-    color: "#FFF",
     marginBottom: 10,
   },
   stationLogo: {
@@ -299,18 +305,15 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   currentTime: {
-    color: "#999",
     fontSize: 14,
     marginBottom: 8,
   },
   programTitle: {
-    color: "#FFF",
     fontSize: 20,
     fontWeight: "600",
     marginBottom: 8,
   },
   djName: {
-    color: "#999",
     fontSize: 16,
   },
   hiddenVideo: {

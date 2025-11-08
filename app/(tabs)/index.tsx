@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, { useState, useEffect, useRef } from "react";
 import {
   View,
   Text,
@@ -8,25 +8,29 @@ import {
   Dimensions,
   Image,
   Alert,
-} from 'react-native';
-import {useTheme} from '@react-navigation/native';
-import {useRouter} from 'expo-router';
-import {useActionSheet} from '@expo/react-native-action-sheet';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import {STATION_CATEGORIES} from '../../constants/categories';
-import StationsList from '../../components/StationsList';
-import {stationImages} from '../../constants/stationsLogo';
-import {RadioStation} from '../../constants/stations';
+  useColorScheme,
+} from "react-native";
+import { useTheme } from "@react-navigation/native";
+import { useRouter } from "expo-router";
+import { useActionSheet } from "@expo/react-native-action-sheet";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { STATION_CATEGORIES } from "../../constants/categories";
+import StationsList from "../../components/StationsList";
+import { stationImages } from "../../constants/stationsLogo";
+import { RadioStation } from "../../constants/stations";
 
 export default function HomeScreen() {
-  const {colors} = useTheme();
+  const { colors } = useTheme();
+  const colorScheme = useColorScheme();
   const router = useRouter();
-  const [recentStationList, setRecentStationList] = useState<RadioStation[]>([]);
-  const {showActionSheetWithOptions} = useActionSheet();
+  const [recentStationList, setRecentStationList] = useState<RadioStation[]>(
+    [],
+  );
+  const { showActionSheetWithOptions } = useActionSheet();
   const recentScrollView = useRef<ScrollView>(null);
 
   const longPress = (stationId: string) => {
-    const options = ['삭제', '전체 삭제', '취소'];
+    const options = ["삭제", "전체 삭제", "취소"];
     const destructiveButtonIndex = [0, 1];
     const cancelButtonIndex = 2;
 
@@ -35,28 +39,29 @@ export default function HomeScreen() {
         options,
         cancelButtonIndex,
         destructiveButtonIndex,
+        userInterfaceStyle: colorScheme === "dark" ? "dark" : "light",
       },
       async (selectedIndex?: number) => {
         switch (selectedIndex) {
           case 0:
-            const stationLists = await AsyncStorage.getItem('@recent_stations');
+            const stationLists = await AsyncStorage.getItem("@recent_stations");
             if (!stationLists) {
               return;
             }
             const parsedStations: RadioStation[] = JSON.parse(stationLists);
             const updatedStations = parsedStations.filter(
-              station => station.id !== stationId,
+              (station) => station.id !== stationId,
             );
 
             await AsyncStorage.setItem(
-              '@recent_stations',
+              "@recent_stations",
               JSON.stringify(updatedStations),
             );
             setRecentStationList(updatedStations);
             break;
 
           case 1:
-            await AsyncStorage.setItem('@recent_stations', JSON.stringify([]));
+            await AsyncStorage.setItem("@recent_stations", JSON.stringify([]));
             setRecentStationList([]);
             break;
 
@@ -70,7 +75,7 @@ export default function HomeScreen() {
   useEffect(() => {
     const loadRecentStations = async () => {
       try {
-        const recentStations = await AsyncStorage.getItem('@recent_stations');
+        const recentStations = await AsyncStorage.getItem("@recent_stations");
         if (!recentStations) {
           setRecentStationList([]);
           return;
@@ -80,7 +85,7 @@ export default function HomeScreen() {
           setRecentStationList(parsedStations);
         }
       } catch (error) {
-        console.error('최근 방송국 불러오기 실패:', error);
+        console.error("최근 방송국 불러오기 실패:", error);
         setRecentStationList([]);
       }
     };
@@ -89,24 +94,26 @@ export default function HomeScreen() {
 
   const handleStationPress = async (station: RadioStation) => {
     try {
-      const recentStations = await AsyncStorage.getItem('@recent_stations');
+      const recentStations = await AsyncStorage.getItem("@recent_stations");
       const parsedStations: RadioStation[] = recentStations
         ? JSON.parse(recentStations)
         : [];
 
-      const filteredStations = parsedStations.filter(s => s.id !== station.id);
+      const filteredStations = parsedStations.filter(
+        (s) => s.id !== station.id,
+      );
       const updatedStations = [...filteredStations, station].slice(0, 5);
 
       await AsyncStorage.setItem(
-        '@recent_stations',
+        "@recent_stations",
         JSON.stringify(updatedStations),
       );
 
       setRecentStationList(updatedStations);
-      recentScrollView.current?.scrollTo({x: 0});
+      recentScrollView.current?.scrollTo({ x: 0 });
 
       router.push({
-        pathname: '/player',
+        pathname: "/player",
         params: {
           stationId: station.id,
           stationName: station.name,
@@ -116,23 +123,26 @@ export default function HomeScreen() {
         },
       });
     } catch (error) {
-      console.error('최근 방송국 저장 실패:', error);
+      console.error("최근 방송국 저장 실패:", error);
     }
   };
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView
+      style={{ ...styles.container, backgroundColor: colors.background }}
+    >
       <View style={styles.section}>
-        <Text style={{...styles.sectionTitle, color: colors.text}}>
+        <Text style={{ ...styles.sectionTitle, color: colors.text }}>
           최근 재생한 방송국
         </Text>
 
         <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}
-          ref={recentScrollView}>
+          ref={recentScrollView}
+        >
           {recentStationList.length === 0 ? (
-            <Text style={{color: colors.text}}>
+            <Text style={{ color: colors.text }}>
               최근 재생한 방송국이 여기에 표시됩니다.
             </Text>
           ) : (
@@ -142,11 +152,12 @@ export default function HomeScreen() {
                   style={[
                     styles.card,
                     station.logo === null && station.color
-                      ? {backgroundColor: station.color}
+                      ? { backgroundColor: station.color }
                       : null,
                   ]}
                   onPress={() => handleStationPress(station)}
-                  onLongPress={() => longPress(station.id)}>
+                  onLongPress={() => longPress(station.id)}
+                >
                   {station.logo && (
                     <Image
                       source={stationImages[station.id]}
@@ -154,12 +165,12 @@ export default function HomeScreen() {
                         width: CARD_WIDTH,
                         height: CARD_WIDTH,
                         borderRadius: 12,
-                        resizeMode: 'contain',
+                        resizeMode: "contain",
                       }}
                     />
                   )}
                 </TouchableOpacity>
-                <Text style={{...styles.stationName, color: colors.text}}>
+                <Text style={{ ...styles.stationName, color: colors.text }}>
                   {station.name}
                 </Text>
               </View>
@@ -176,7 +187,7 @@ export default function HomeScreen() {
   );
 }
 
-const CARD_WIDTH = Dimensions.get('window').width * 0.4;
+const CARD_WIDTH = Dimensions.get("window").width * 0.4;
 
 const styles = StyleSheet.create({
   container: {
@@ -187,7 +198,7 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 15,
   },
   cardContainer: {
@@ -200,8 +211,8 @@ const styles = StyleSheet.create({
     marginBottom: 8,
     borderRadius: 8,
     padding: 15,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   stationName: {},
 });
