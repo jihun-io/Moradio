@@ -1,98 +1,207 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
-
-import { HelloWave } from '@/components/hello-wave';
-import ParallaxScrollView from '@/components/parallax-scroll-view';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { Link } from 'expo-router';
+import React, {useState, useEffect, useRef} from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+  Dimensions,
+  Image,
+  Alert,
+} from 'react-native';
+import {useTheme} from '@react-navigation/native';
+import {useRouter} from 'expo-router';
+import {useActionSheet} from '@expo/react-native-action-sheet';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {STATION_CATEGORIES} from '../../constants/categories';
+import StationsList from '../../components/StationsList';
+import {stationImages} from '../../constants/stationsLogo';
+import {RadioStation} from '../../constants/stations';
 
 export default function HomeScreen() {
-  return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <Link href="/modal">
-          <Link.Trigger>
-            <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-          </Link.Trigger>
-          <Link.Preview />
-          <Link.Menu>
-            <Link.MenuAction title="Action" icon="cube" onPress={() => alert('Action pressed')} />
-            <Link.MenuAction
-              title="Share"
-              icon="square.and.arrow.up"
-              onPress={() => alert('Share pressed')}
-            />
-            <Link.Menu title="More" icon="ellipsis">
-              <Link.MenuAction
-                title="Delete"
-                icon="trash"
-                destructive
-                onPress={() => alert('Delete pressed')}
-              />
-            </Link.Menu>
-          </Link.Menu>
-        </Link>
+  const {colors} = useTheme();
+  const router = useRouter();
+  const [recentStationList, setRecentStationList] = useState<RadioStation[]>([]);
+  const {showActionSheetWithOptions} = useActionSheet();
+  const recentScrollView = useRef<ScrollView>(null);
 
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+  const longPress = (stationId: string) => {
+    const options = ['삭제', '전체 삭제', '취소'];
+    const destructiveButtonIndex = [0, 1];
+    const cancelButtonIndex = 2;
+
+    showActionSheetWithOptions(
+      {
+        options,
+        cancelButtonIndex,
+        destructiveButtonIndex,
+      },
+      async (selectedIndex?: number) => {
+        switch (selectedIndex) {
+          case 0:
+            const stationLists = await AsyncStorage.getItem('@recent_stations');
+            if (!stationLists) {
+              return;
+            }
+            const parsedStations: RadioStation[] = JSON.parse(stationLists);
+            const updatedStations = parsedStations.filter(
+              station => station.id !== stationId,
+            );
+
+            await AsyncStorage.setItem(
+              '@recent_stations',
+              JSON.stringify(updatedStations),
+            );
+            setRecentStationList(updatedStations);
+            break;
+
+          case 1:
+            await AsyncStorage.setItem('@recent_stations', JSON.stringify([]));
+            setRecentStationList([]);
+            break;
+
+          case 2:
+            break;
+        }
+      },
+    );
+  };
+
+  useEffect(() => {
+    const loadRecentStations = async () => {
+      try {
+        const recentStations = await AsyncStorage.getItem('@recent_stations');
+        if (!recentStations) {
+          setRecentStationList([]);
+          return;
+        }
+        const parsedStations = JSON.parse(recentStations) as RadioStation[];
+        if (Array.isArray(parsedStations)) {
+          setRecentStationList(parsedStations);
+        }
+      } catch (error) {
+        console.error('최근 방송국 불러오기 실패:', error);
+        setRecentStationList([]);
+      }
+    };
+    loadRecentStations();
+  }, []);
+
+  const handleStationPress = async (station: RadioStation) => {
+    try {
+      const recentStations = await AsyncStorage.getItem('@recent_stations');
+      const parsedStations: RadioStation[] = recentStations
+        ? JSON.parse(recentStations)
+        : [];
+
+      const filteredStations = parsedStations.filter(s => s.id !== station.id);
+      const updatedStations = [...filteredStations, station].slice(0, 5);
+
+      await AsyncStorage.setItem(
+        '@recent_stations',
+        JSON.stringify(updatedStations),
+      );
+
+      setRecentStationList(updatedStations);
+      recentScrollView.current?.scrollTo({x: 0});
+
+      router.push({
+        pathname: '/player',
+        params: {
+          stationId: station.id,
+          stationName: station.name,
+          streamUrl: station.streamUrl,
+          stationLogo: station.logo,
+          stationColor: station.color,
+        },
+      });
+    } catch (error) {
+      console.error('최근 방송국 저장 실패:', error);
+    }
+  };
+
+  return (
+    <ScrollView style={styles.container}>
+      <View style={styles.section}>
+        <Text style={{...styles.sectionTitle, color: colors.text}}>
+          최근 재생한 방송국
+        </Text>
+
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          ref={recentScrollView}>
+          {recentStationList.length === 0 ? (
+            <Text style={{color: colors.text}}>
+              최근 재생한 방송국이 여기에 표시됩니다.
+            </Text>
+          ) : (
+            recentStationList.reverse().map((station: RadioStation) => (
+              <View key={station.id}>
+                <TouchableOpacity
+                  style={[
+                    styles.card,
+                    station.logo === null && station.color
+                      ? {backgroundColor: station.color}
+                      : null,
+                  ]}
+                  onPress={() => handleStationPress(station)}
+                  onLongPress={() => longPress(station.id)}>
+                  {station.logo && (
+                    <Image
+                      source={stationImages[station.id]}
+                      style={{
+                        width: CARD_WIDTH,
+                        height: CARD_WIDTH,
+                        borderRadius: 12,
+                        resizeMode: 'contain',
+                      }}
+                    />
+                  )}
+                </TouchableOpacity>
+                <Text style={{...styles.stationName, color: colors.text}}>
+                  {station.name}
+                </Text>
+              </View>
+            ))
+          )}
+        </ScrollView>
+        <StationsList
+          onStationSelect={handleStationPress}
+          setRecentStationList={setRecentStationList}
+          recentScrollViewRef={recentScrollView}
+        />
+      </View>
+    </ScrollView>
   );
 }
 
+const CARD_WIDTH = Dimensions.get('window').width * 0.4;
+
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
+  container: {
+    flex: 1,
   },
-  stepContainer: {
-    gap: 8,
+  section: {
+    padding: 20,
+  },
+  sectionTitle: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 15,
+  },
+  cardContainer: {
+    paddingRight: 20,
+  },
+  card: {
+    width: CARD_WIDTH,
+    height: CARD_WIDTH,
+    marginRight: 15,
     marginBottom: 8,
+    borderRadius: 8,
+    padding: 15,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
-  },
+  stationName: {},
 });
